@@ -6,8 +6,10 @@
 
 N = positive integer index
 METHOD = 'i' for iterative, 'r' for recursive
+TEXT = text file containing integer
 
-Outputs the first N Fibonacci numbers using the specified method
+Adds N and the integer stored in the given text file and
+outputs the first N Fibonacci numbers using the specified method
 */
 
 #define MAX_LEN 1024
