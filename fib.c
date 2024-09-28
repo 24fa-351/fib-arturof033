@@ -1,37 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_LEN 10
+/*
+./fib N METHOD
 
-int iterativeFibonacci(int n)
-{
-    int value1 = 0;
-    int value2 = 1;
-    int result = 0;
+N = positive integer index
+METHOD = 'i' for iterative, 'r' for recursive
 
-    for (int i = 1; i <= n; i++)
-    {
-        result = value1 + value2;
-        value2 = value1;
-        value1 = result; 
+Outputs the first N Fibonacci numbers using the specified method
+*/
+
+#define MAX_LEN 1024
+
+int iter_fib(int fibIndex) {
+    
+    int previous = 0;
+    int result = 1;
+
+    for (int ix = 1; ix <= fibIndex - 1; ix++) {
+        int temp = previous + result;
+        previous = result;
+        result = temp;   
     }
 
     return result;
 }
 
-int recursiveFibonacci(int n)
-{
-    if(n == 0)
-    {
-        return 0;
-    }
-    if (n == 1)
-    {
-        return 1;
-    }
+int rec_fib(int fibIndex) {
     
-    return recursiveFibonacci(n - 1) + recursiveFibonacci(n - 2);
+    if(fibIndex < 2) {
+        return fibIndex;
+    }
+
+    return rec_fib(fibIndex - 1) + rec_fib(fibIndex - 2);
 }
+ 
 
 int main(int argc, char * argv[]) {
 
@@ -41,16 +44,14 @@ int main(int argc, char * argv[]) {
     fptr =  fopen(argv[3], "r");
     fgets (num, MAX_LEN, fptr);
 
-    int N = atoi(num) + atoi(argv[1]) - 1;
+    int fibIndex = atoi(num) + atoi(argv[1]) - 1;
 
-    if (*argv[2] == 'i')
-    {
-        printf("%d", iterativeFibonacci(N));
+    if (*argv[2] == 'i') {
+        printf("%d", iter_fib(fibIndex));
     }
 
-    if (*argv[2] == 'r')
-    {
-        printf("%d", recursiveFibonacci(N));
+    if (*argv[2] == 'r') {
+        printf("%d", rec_fib(fibIndex));
     }
 
    return 0;
